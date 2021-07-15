@@ -58,16 +58,56 @@
 		E99861D226A0D8070059F578 /* Collection App */ = {
 			isa = PBXGroup;
 			children = (
+				E99861ED26A0D9230059F578 /* Core Data */,
+				E99861EA26A0D8740059F578 /* Delegates */,
+				E99861EE26A0D95D0059F578 /* Storyboard */,
+				E99861EB26A0D8980059F578 /* View Controllers */,
+				E99861EC26A0D8F40059F578 /* Views */,
+				E99861DF26A0D8080059F578 /* Assets.xcassets */,
+			);
+			path = "Collection App";
+			sourceTree = "<group>";
+		};
+		E99861EA26A0D8740059F578 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
 				E99861D326A0D8070059F578 /* AppDelegate.swift */,
 				E99861D526A0D8070059F578 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		E99861EB26A0D8980059F578 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				E99861D726A0D8070059F578 /* ViewController.swift */,
-				E99861D926A0D8070059F578 /* Main.storyboard */,
-				E99861DF26A0D8080059F578 /* Assets.xcassets */,
-				E99861E126A0D8080059F578 /* LaunchScreen.storyboard */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		E99861EC26A0D8F40059F578 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E99861ED26A0D9230059F578 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
 				E99861E426A0D8080059F578 /* Info.plist */,
 				E99861DC26A0D8070059F578 /* Collection_App.xcdatamodeld */,
 			);
-			path = "Collection App";
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		E99861EE26A0D95D0059F578 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				E99861E126A0D8080059F578 /* LaunchScreen.storyboard */,
+				E99861D926A0D8070059F578 /* Main.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,10 +337,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "br.dev.nathalia.Collection-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -316,10 +357,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "br.dev.nathalia.Collection-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
