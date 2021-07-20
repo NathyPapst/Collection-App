@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainView: UIView {
+class MainViewCV: UIView {
     
     init() {
         super.init(frame: .zero)
