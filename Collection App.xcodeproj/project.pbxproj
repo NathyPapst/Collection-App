@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E94CC3EB26A7617B0030E1AC /* MainViewTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CC3EA26A7617B0030E1AC /* MainViewTV.swift */; };
-		E94CC3ED26A761CA0030E1AC /* MainViewControllerTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CC3EC26A761CA0030E1AC /* MainViewControllerTV.swift */; };
+		E94CC3EF26A76F710030E1AC /* MainViewTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CC3EE26A76F710030E1AC /* MainViewTV.swift */; };
+		E94CC3F126A76FE40030E1AC /* MainViewControllerTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CC3F026A76FE40030E1AC /* MainViewControllerTV.swift */; };
 		E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D326A0D8070059F578 /* AppDelegate.swift */; };
 		E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D526A0D8070059F578 /* SceneDelegate.swift */; };
 		E99861D826A0D8070059F578 /* MainViewControllerCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D726A0D8070059F578 /* MainViewControllerCV.swift */; };
@@ -19,8 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E94CC3EA26A7617B0030E1AC /* MainViewTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTV.swift; sourceTree = "<group>"; };
-		E94CC3EC26A761CA0030E1AC /* MainViewControllerTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTV.swift; sourceTree = "<group>"; };
+		E94CC3EE26A76F710030E1AC /* MainViewTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTV.swift; sourceTree = "<group>"; };
+		E94CC3F026A76FE40030E1AC /* MainViewControllerTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTV.swift; sourceTree = "<group>"; };
 		E99861D026A0D8070059F578 /* Collection App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Collection App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99861D326A0D8070059F578 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E99861D526A0D8070059F578 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				E99861D726A0D8070059F578 /* MainViewControllerCV.swift */,
-				E94CC3EC26A761CA0030E1AC /* MainViewControllerTV.swift */,
+				E94CC3F026A76FE40030E1AC /* MainViewControllerTV.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				E9A65B9426A5FF050069EECF /* MainViewCV.swift */,
-				E94CC3EA26A7617B0030E1AC /* MainViewTV.swift */,
+				E94CC3EE26A76F710030E1AC /* MainViewTV.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,11 +187,11 @@
 			files = (
 				E99861D826A0D8070059F578 /* MainViewControllerCV.swift in Sources */,
 				E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */,
-				E94CC3ED26A761CA0030E1AC /* MainViewControllerTV.swift in Sources */,
+				E94CC3F126A76FE40030E1AC /* MainViewControllerTV.swift in Sources */,
 				E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */,
 				E9A65B9526A5FF050069EECF /* MainViewCV.swift in Sources */,
 				E99861DE26A0D8070059F578 /* Collection_App.xcdatamodeld in Sources */,
-				E94CC3EB26A7617B0030E1AC /* MainViewTV.swift in Sources */,
+				E94CC3EF26A76F710030E1AC /* MainViewTV.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
