@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewControllerCV: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var editButton: UIBarButtonItem!
     var addButton: UIBarButtonItem!
@@ -16,7 +16,7 @@ class MainViewControllerCV: UIViewController, UICollectionViewDelegate, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view = MainViewCV()
+        view = MainView()
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
