@@ -16,7 +16,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view = MainView()
+        view.backgroundColor = #colorLiteral(red: 0.894770503, green: 0.9582068324, blue: 1, alpha: 1)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
@@ -44,14 +44,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
         
-        
         view.addSubview(collectionView)
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        addConstraints()
         
     }
     
@@ -63,6 +57,14 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.contentView.backgroundColor = .systemBlue
         return cell
+    }
+    
+    func addConstraints() {
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     @objc func editCollections() {
