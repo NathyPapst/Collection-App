@@ -34,8 +34,6 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
         title = "Nova Coleção"
         
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        
         cancelButton = UIBarButtonItem(title: "Cancelar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelNewCollection))
         navigationItem.leftBarButtonItem = cancelButton!
         
@@ -103,7 +101,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     enum textFieldData: Int {
-        case nome = 0
+        case name = 0
     }
     
     func isTyping(_ textField: UITextField) {
@@ -112,7 +110,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     
     @objc func newValue(_ textField: UITextField) {
         switch textField.tag {
-            case textFieldData.nome.rawValue:
+            case textFieldData.name.rawValue:
                 collection.name = textField.text ?? ""
             default:
                 break
