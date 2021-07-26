@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E94E65D826AF265D0087C2AC /* ViewElementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E65D726AF265C0087C2AC /* ViewElementsViewController.swift */; };
 		E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D326A0D8070059F578 /* AppDelegate.swift */; };
 		E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D526A0D8070059F578 /* SceneDelegate.swift */; };
 		E99861D826A0D8070059F578 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D726A0D8070059F578 /* MainViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E94E65D726AF265C0087C2AC /* ViewElementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElementsViewController.swift; sourceTree = "<group>"; };
 		E99861D026A0D8070059F578 /* Collection App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Collection App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99861D326A0D8070059F578 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E99861D526A0D8070059F578 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E94E65D626AF26300087C2AC /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				E9BB8BC226AA191300BBD4E0 /* Textfield.swift */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
 		E99861C726A0D8070059F578 = {
 			isa = PBXGroup;
 			children = (
@@ -64,11 +74,11 @@
 			children = (
 				E99861ED26A0D9230059F578 /* Core Data */,
 				E99861EA26A0D8740059F578 /* Delegates */,
+				E94E65D626AF26300087C2AC /* Extra */,
 				E99861EE26A0D95D0059F578 /* Storyboard */,
 				E99861EB26A0D8980059F578 /* View Controllers */,
 				E99861DF26A0D8080059F578 /* Assets.xcassets */,
 				E99861E426A0D8080059F578 /* Info.plist */,
-				E9BB8BC226AA191300BBD4E0 /* Textfield.swift */,
 			);
 			path = "Collection App";
 			sourceTree = "<group>";
@@ -88,6 +98,7 @@
 				E99861D726A0D8070059F578 /* MainViewController.swift */,
 				E9BB8BC026A9DA2700BBD4E0 /* CreateCollectionViewController.swift */,
 				E9C90B6726AB1CB70002A365 /* NewElementViewController.swift */,
+				E94E65D726AF265C0087C2AC /* ViewElementsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -181,6 +192,7 @@
 				E9BB8BC326AA191300BBD4E0 /* Textfield.swift in Sources */,
 				E9BB8BC126A9DA2700BBD4E0 /* CreateCollectionViewController.swift in Sources */,
 				E9C90B6826AB1CB70002A365 /* NewElementViewController.swift in Sources */,
+				E94E65D826AF265D0087C2AC /* ViewElementsViewController.swift in Sources */,
 				E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */,
 				E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */,
 				E99861DE26A0D8070059F578 /* Collection_App.xcdatamodeld in Sources */,

@@ -1,15 +1,17 @@
 //
-//  ViewController.swift
+//  ViewElementsViewController.swift
 //  Collection App
 //
-//  Created by Nathalia do Valle Papst on 15/07/21.
+//  Created by Nathalia do Valle Papst on 26/07/21.
 //
 
 import UIKit
 
-class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewElementsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var addButton: UIBarButtonItem!
+    var editButton: UIBarButtonItem!
+    var eraseButton: UIBarButtonItem!
     private var collectionView: UICollectionView?
 
     override func viewDidLoad() {
@@ -19,12 +21,17 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
-        title = "Minhas Coleções"
+        title = "Nome 1"
         
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         
-        addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(addCollection))
-        navigationItem.rightBarButtonItem = addButton!
+        addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(addElement))
+        
+        editButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(editCollection))
+        
+        eraseButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(eraseCollection))
+    
+        navigationItem.rightBarButtonItems = [addButton!, editButton!, eraseButton!]
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
@@ -42,8 +49,16 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         view.addSubview(collectionView)
         addConstraints()
-        
     }
+    
+    func addConstraints() {
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 30
@@ -55,23 +70,15 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ViewElementsViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func addConstraints() {
-        collectionView?.translatesAutoresizingMaskIntoConstraints = false
-        collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    }
-    
-    @objc func addCollection() {
+    @objc func addElement() {
         
     }
-
-
+    
+    @objc func editCollection() {
+        
+    }
+    
+    @objc func eraseCollection() {
+        
+    }
 }
-
