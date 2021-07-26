@@ -120,6 +120,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @objc func cancelNewCollection() {
+        self.dismiss(animated: true, completion: nil)
         
     }
     
