@@ -71,6 +71,10 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     @objc func addElement() {
+        let root = NewElementViewController()
+        let vc = UINavigationController(rootViewController: root)
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: true)
         
     }
     

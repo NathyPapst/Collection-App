@@ -23,7 +23,7 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     var addPhotoButton: UIButton = UIButton(type: .custom)
     var notesTextView: UITextView = UITextView()
     var placeholders: [String] = ["Nome", "Data", "Local", "Preço"]
-    var notePlaceholder: String = "Anotações"
+    var notePlaceholder: String = "  Anotações"
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -84,10 +84,10 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         coverPhotoLabel.bottomAnchor.constraint(equalTo: imageSpace.topAnchor, constant: -view.frame.height/40).isActive = true
         
         imageSpace.translatesAutoresizingMaskIntoConstraints = false
-        imageSpace.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/5).isActive = true
+        imageSpace.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/7).isActive = true
         imageSpace.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/10).isActive = true
         imageSpace.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.width/10).isActive = true
-        imageSpace.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/1.9).isActive = true
+        imageSpace.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/1.7).isActive = true
         
         addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
         addPhotoButton.centerXAnchor.constraint(equalTo: imageSpace.centerXAnchor).isActive = true
@@ -107,7 +107,7 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "Anotações" {
+        if textView.text == "  Anotações" {
             textView.text = ""
             textView.textColor = UIColor.black
             textView.font = .systemFont(ofSize: 20)
