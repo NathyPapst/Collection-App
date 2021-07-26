@@ -69,9 +69,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func addCollection() {
-        
+        let vc = CreateCollectionViewController()
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: true)
     }
-
-
 }
+
+
+
 
