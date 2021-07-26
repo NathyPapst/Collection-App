@@ -66,10 +66,10 @@ class EditCollectionViewController: UIViewController, UITableViewDelegate, UITab
     
     func addConstraints() {
         imageSpace.translatesAutoresizingMaskIntoConstraints = false
-        imageSpace.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/5).isActive = true
+        imageSpace.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/7).isActive = true
         imageSpace.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/10).isActive = true
         imageSpace.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.width/10).isActive = true
-        imageSpace.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/1.9).isActive = true
+        imageSpace.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/1.7).isActive = true
         
         coverPhotoLabel.translatesAutoresizingMaskIntoConstraints = false
         coverPhotoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/20).isActive = true
@@ -120,7 +120,7 @@ class EditCollectionViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @objc func cancelEdition() {
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func saveEdition() {

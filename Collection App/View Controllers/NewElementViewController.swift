@@ -147,7 +147,7 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     @objc func cancelNewElement() {
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func addNewElement() {

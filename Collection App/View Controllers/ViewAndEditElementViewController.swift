@@ -23,7 +23,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     var coverPhotoLabel: UILabel = UILabel()
     var addPhotoButton: UIButton = UIButton(type: .custom)
     var placeholders: [String] = ["Nome", "Data", "Local", "Preço"]
-    var notePlaceholder: String = "Anotações"
+    var notePlaceholder: String = "  Anotações"
     var notesTextView: UITextView = UITextView()
 
     let tableView: UITableView = {
@@ -37,6 +37,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         
         view.backgroundColor = #colorLiteral(red: 0.894770503, green: 0.9582068324, blue: 1, alpha: 1)
         
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
         title = "Detalhes do Elemento"
         
@@ -84,7 +85,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         imageSpace.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/5).isActive = true
         imageSpace.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/10).isActive = true
         imageSpace.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.width/10).isActive = true
-        imageSpace.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/1.9).isActive = true
+        imageSpace.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/1.7).isActive = true
         
         addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
         addPhotoButton.centerXAnchor.constraint(equalTo: imageSpace.centerXAnchor).isActive = true
@@ -104,7 +105,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "Anotações" {
+        if textView.text == "  Anotações" {
             textView.text = ""
             textView.textColor = UIColor.black
             textView.font = .systemFont(ofSize: 20)

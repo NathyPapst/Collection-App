@@ -70,6 +70,11 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ViewAndEditElementViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc func addElement() {
         let root = NewElementViewController()
         let vc = UINavigationController(rootViewController: root)
@@ -79,7 +84,10 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     @objc func editCollection() {
-        
+        let root = EditCollectionViewController()
+        let vc = UINavigationController(rootViewController: root)
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: true)
     }
     
     @objc func eraseCollection() {
