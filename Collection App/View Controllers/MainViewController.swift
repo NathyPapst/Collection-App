@@ -9,7 +9,6 @@ import UIKit
 
 class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var editButton: UIBarButtonItem!
     var addButton: UIBarButtonItem!
     private var collectionView: UICollectionView?
 
@@ -23,9 +22,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         title = "Minhas Coleções"
         
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        
-        editButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(editCollections))
-        navigationItem.leftBarButtonItem = editButton!
         
         addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(addCollection))
         navigationItem.rightBarButtonItem = addButton!
@@ -65,10 +61,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    }
-    
-    @objc func editCollections() {
-        
     }
     
     @objc func addCollection() {
