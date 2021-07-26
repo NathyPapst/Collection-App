@@ -58,6 +58,8 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         tableView.delegate = self
         tableView.backgroundColor = .clear
         view.addSubview(tableView)
+        
+        addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
 
         addConstraints()
     }
@@ -122,6 +124,10 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @objc func addNewCollection() {
+        
+    }
+    
+    @objc func addPhoto() {
         
     }
 }
