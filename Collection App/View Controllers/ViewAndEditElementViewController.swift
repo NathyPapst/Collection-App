@@ -122,7 +122,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         notesTextView.heightAnchor.constraint(equalToConstant: view.frame.height/5).isActive = true
         
         eraseButton.translatesAutoresizingMaskIntoConstraints = false
-        eraseButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: view.frame.height/15).isActive = true
+        eraseButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: view.frame.height/30).isActive = true
         eraseButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: view.frame.width/4).isActive = true
         eraseButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -view.frame.width/4).isActive = true
         eraseButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true

@@ -33,9 +33,7 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     
         navigationItem.rightBarButtonItems = [addButton!, editButton!, eraseButton!]
         
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
-        layout.scrollDirection = .vertical
+        let layout = makeLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         guard let collectionView = collectionView else {
@@ -51,12 +49,22 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
         addConstraints()
     }
     
+    func makeLayout() -> UICollectionViewCompositionalLayout{
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.5))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+    
     func addConstraints() {
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/20).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.width/20).isActive = true
     }
     
     
