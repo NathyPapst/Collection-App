@@ -19,7 +19,6 @@
 		E9BB8BC126A9DA2700BBD4E0 /* CreateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB8BC026A9DA2700BBD4E0 /* CreateCollectionViewController.swift */; };
 		E9BB8BC326AA191300BBD4E0 /* Textfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB8BC226AA191300BBD4E0 /* Textfield.swift */; };
 		E9C90B6826AB1CB70002A365 /* NewElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C90B6726AB1CB70002A365 /* NewElementViewController.swift */; };
-		E9EEB0E726AF94E5002E004A /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EEB0E626AF94E5002E004A /* ScrollViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		E9BB8BC026A9DA2700BBD4E0 /* CreateCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionViewController.swift; sourceTree = "<group>"; };
 		E9BB8BC226AA191300BBD4E0 /* Textfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textfield.swift; sourceTree = "<group>"; };
 		E9C90B6726AB1CB70002A365 /* NewElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewElementViewController.swift; sourceTree = "<group>"; };
-		E9EEB0E626AF94E5002E004A /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +105,6 @@
 				E94E65D726AF265C0087C2AC /* ViewElementsViewController.swift */,
 				E94E65D926AF47EB0087C2AC /* EditCollectionViewController.swift */,
 				E94E65DB26AF4D050087C2AC /* ViewAndEditElementViewController.swift */,
-				E9EEB0E626AF94E5002E004A /* ScrollViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -204,7 +201,6 @@
 				E94E65DA26AF47EB0087C2AC /* EditCollectionViewController.swift in Sources */,
 				E94E65D826AF265D0087C2AC /* ViewElementsViewController.swift in Sources */,
 				E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */,
-				E9EEB0E726AF94E5002E004A /* ScrollViewController.swift in Sources */,
 				E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */,
 				E94E65DC26AF4D050087C2AC /* ViewAndEditElementViewController.swift in Sources */,
 				E99861DE26A0D8070059F578 /* Collection_App.xcdatamodeld in Sources */,

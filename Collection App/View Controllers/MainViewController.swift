@@ -27,7 +27,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         navigationItem.rightBarButtonItem = addButton!
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
+        layout.itemSize = CGSize(width: view.frame.width/3, height: view.frame.height/6) // tamanho das células
         layout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -64,8 +64,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/20).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.width/20).isActive = true
     }
     
     @objc func addCollection() {

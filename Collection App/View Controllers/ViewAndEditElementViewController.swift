@@ -17,7 +17,6 @@ struct EditElementStruct {
 class ViewAndEditElementViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
     let scrollView = UIScrollView()
-    let contentView = UIView()
     
     var editButton: UIBarButtonItem!
     var imageSpace: UIImageView = UIImageView(frame: .zero)
@@ -48,117 +47,89 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         editButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(editElement))
         navigationItem.rightBarButtonItem = editButton!
         
-//        view.addSubview(coverPhotoLabel)
-//        coverPhotoLabel.text = "Foto de Capa:"
-//        coverPhotoLabel.textColor = .black
-//        coverPhotoLabel.font = .systemFont(ofSize: view.frame.height  * 0.028, weight: .regular)
-//
-//        view.addSubview(imageSpace)
-//        imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
-//        imageSpace.layer.cornerRadius = view.frame.width/45
-//
-//        imageSpace.addSubview(addPhotoButton)
-//        let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)
-//        addPhotoButton.setImage(UIImage(systemName: "plus", withConfiguration: configIcon), for: .normal)
-//        addPhotoButton.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
-//
-//        view.addSubview(tableView)
-//        tableView.dataSource = self
-//        tableView.delegate = self
-//        tableView.backgroundColor = .clear
-//
-//        view.addSubview(notesTextView)
-//        notesTextView.backgroundColor = .clear
-//        notesTextView.layer.borderWidth = 1
-//        notesTextView.layer.borderColor = #colorLiteral(red: 0.7984885573, green: 0.8520841002, blue: 0.8903550506, alpha: 1)
-//        notesTextView.text = notePlaceholder
-//        notesTextView.textColor = UIColor.lightGray
-//        notesTextView.font = .systemFont(ofSize: 20)
-//        notesTextView.delegate = self
-//        notesTextView.returnKeyType = .done
-//
-//        view.addSubview(eraseButton)
-//        eraseButton.backgroundColor = #colorLiteral(red: 0.8197560906, green: 0.9276883006, blue: 0.9955262542, alpha: 1)
-//        eraseButton.setTitle("Apagar Elemento", for: .normal)
-//        eraseButton.tintColor = .systemRed
+        view.addSubview(scrollView)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 1.1)
+        
+        scrollView.addSubview(coverPhotoLabel)
+        coverPhotoLabel.text = "Foto de Capa:"
+        coverPhotoLabel.textColor = .black
+        coverPhotoLabel.font = .systemFont(ofSize: view.frame.height  * 0.028, weight: .regular)
+
+        scrollView.addSubview(imageSpace)
+        imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
+        imageSpace.layer.cornerRadius = view.frame.width/45
+
+        imageSpace.addSubview(addPhotoButton)
+        let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)
+        addPhotoButton.setImage(UIImage(systemName: "plus", withConfiguration: configIcon), for: .normal)
+        addPhotoButton.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
+
+        scrollView.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = .clear
+
+        scrollView.addSubview(notesTextView)
+        notesTextView.backgroundColor = .clear
+        notesTextView.layer.borderWidth = 1
+        notesTextView.layer.borderColor = #colorLiteral(red: 0.7984885573, green: 0.8520841002, blue: 0.8903550506, alpha: 1)
+        notesTextView.text = notePlaceholder
+        notesTextView.textColor = UIColor.lightGray
+        notesTextView.font = .systemFont(ofSize: 20)
+        notesTextView.delegate = self
+        notesTextView.returnKeyType = .done
+
+        scrollView.addSubview(eraseButton)
+        eraseButton.setTitle("Apagar Elemento", for: .normal)
+        eraseButton.setTitleColor(.systemRed, for: .normal)
         
         addConstraints()
-        setupViews()
     }
     
     func addConstraints() {
-//        coverPhotoLabel.translatesAutoresizingMaskIntoConstraints = false
-//        coverPhotoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/20).isActive = true
-//        coverPhotoLabel.bottomAnchor.constraint(equalTo: imageSpace.topAnchor, constant: -view.frame.height/40).isActive = true
-//
-//        imageSpace.translatesAutoresizingMaskIntoConstraints = false
-//        imageSpace.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/5).isActive = true
-//        imageSpace.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width/10).isActive = true
-//        imageSpace.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.width/10).isActive = true
-//        imageSpace.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/1.7).isActive = true
-//
-//        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
-//        addPhotoButton.centerXAnchor.constraint(equalTo: imageSpace.centerXAnchor).isActive = true
-//        addPhotoButton.centerYAnchor.constraint(equalTo: imageSpace.centerYAnchor).isActive = true
-//
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.topAnchor.constraint(equalTo: imageSpace.bottomAnchor, constant: view.frame.height/50).isActive = true
-//        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/4.5).isActive = true
-//
-//        notesTextView.translatesAutoresizingMaskIntoConstraints = false
-//        notesTextView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
-//        notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        notesTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/30).isActive = true
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         
-    }
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        label.numberOfLines = 0
-        label.sizeToFit()
-        label.textColor = UIColor.white
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let subtitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        label.numberOfLines = 0
-        label.sizeToFit()
-        label.textColor = UIColor.white
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    func setupViews(){
-        contentView.addSubview(titleLabel)
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        contentView.addSubview(subtitleLabel)
-        subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25).isActive = true
-        subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        subtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-    }
+        coverPhotoLabel.translatesAutoresizingMaskIntoConstraints = false
+        coverPhotoLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: view.frame.width/20).isActive = true
+        coverPhotoLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: view.frame.height/50).isActive = true
 
+        imageSpace.translatesAutoresizingMaskIntoConstraints = false
+        imageSpace.topAnchor.constraint(equalTo: coverPhotoLabel.bottomAnchor, constant: view.frame.height/50).isActive = true
+        imageSpace.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: view.frame.width/10).isActive = true
+        imageSpace.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -view.frame.width/10).isActive = true
+        imageSpace.heightAnchor.constraint(equalTo: scrollView.heightAnchor, constant: -view.frame.height/1.25).isActive = true
+        imageSpace.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+
+        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        addPhotoButton.centerXAnchor.constraint(equalTo: imageSpace.centerXAnchor).isActive = true
+        addPhotoButton.centerYAnchor.constraint(equalTo: imageSpace.centerYAnchor).isActive = true
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: imageSpace.bottomAnchor, constant: view.frame.height/50).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: view.frame.height/3).isActive = true
+
+        notesTextView.translatesAutoresizingMaskIntoConstraints = false
+        notesTextView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+        notesTextView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        notesTextView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        notesTextView.heightAnchor.constraint(equalToConstant: view.frame.height/5).isActive = true
+        
+        eraseButton.translatesAutoresizingMaskIntoConstraints = false
+        eraseButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: view.frame.height/15).isActive = true
+        eraseButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: view.frame.width/4).isActive = true
+        eraseButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -view.frame.width/4).isActive = true
+        eraseButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        eraseButton.heightAnchor.constraint(equalToConstant: view.frame.height/10).isActive = true
+        eraseButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+    }
+    
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "  Anotações" {
