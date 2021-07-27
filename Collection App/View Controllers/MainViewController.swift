@@ -26,9 +26,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(addCollection))
         navigationItem.rightBarButtonItem = addButton!
         
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.width/3, height: view.frame.height/6) // tamanho das células
-        layout.scrollDirection = .vertical
+        let layout = makeLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         guard let collectionView = collectionView else {
@@ -43,6 +41,16 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(collectionView)
         addConstraints()
         
+    }
+    
+    func makeLayout() -> UICollectionViewCompositionalLayout{
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.5))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        return UICollectionViewCompositionalLayout(section: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
