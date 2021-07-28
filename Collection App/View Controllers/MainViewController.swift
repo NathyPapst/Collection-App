@@ -60,6 +60,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.contentView.backgroundColor = .systemBlue
+        cell.contentView.layer.cornerRadius = view.frame.width/45
         return cell
     }
     

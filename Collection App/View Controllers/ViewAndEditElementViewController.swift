@@ -172,6 +172,9 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     
     
     @objc func editElement() {
-        
+        let root = ViewAndEditElementViewController()
+        let vc = UINavigationController(rootViewController: root)
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: true)
     }
 }
