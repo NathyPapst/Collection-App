@@ -52,7 +52,6 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         
         view.addSubview(imageSpace)
         imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
-        imageSpace.layer.cornerRadius = view.frame.width/45
         
         imageSpace.addSubview(addPhotoButton)
         let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)

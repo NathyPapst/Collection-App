@@ -11,7 +11,7 @@ struct CollectionStruct {
     var name: String
 }
 
-class CreateCollectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class CreateCollectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     var imageSpace: UIImageView = UIImageView(frame: .zero)
     var cancelButton: UIBarButtonItem!
@@ -47,9 +47,9 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
 
         view.addSubview(imageSpace)
         imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
-        imageSpace.layer.cornerRadius = view.frame.width/45
 
-        imageSpace.addSubview(addPhotoButton)
+
+        view.addSubview(addPhotoButton)
         let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)
         addPhotoButton.setImage(UIImage(systemName: "plus", withConfiguration: configIcon), for: .normal)
         addPhotoButton.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
@@ -85,6 +85,17 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        imageSpace.image = image
+        imageSpace.contentMode = .scaleToFill
+        self.dismiss(animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -137,7 +148,13 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         
     }
     
-    @objc func addPhoto() {
-        
+    @objc func addPhoto(_ sender: AnyObject) {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+        addPhotoButton.tintColor = .clear
     }
 }
