@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 struct EditCollectionStruct {
     var name: String
@@ -58,7 +59,7 @@ class EditCollectionViewController: UIViewController, UITableViewDelegate, UITab
         tableView.backgroundColor = .clear
         view.addSubview(tableView)
         
-        addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
+        addPhotoButton.addTarget(self, action: #selector(callPermition), for: .touchDown)
 
         addConstraints()
     }
@@ -157,7 +158,39 @@ class EditCollectionViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    
+    @objc func callPermition(){
+            checkPermission()
+        }
+        
+    @objc func checkPermission(){
+        let photoAutorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAutorizationStatus{
+        case.authorized:
+            self.addPhoto()
+            print("Acesso permitido pelo usuário")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                DispatchQueue.main.async {
+                    print("Status is \(newStatus)")
+                    if newStatus == PHAuthorizationStatus.authorized{
+                        self.addPhoto()
+                        print("Acesso autorizado")
+                    }
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            print("User did not have access to photo album")
+        case .denied:
+            print("User has denied permission")
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+    }
 }
 
 

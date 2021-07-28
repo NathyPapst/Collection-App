@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Collection" representedClassName="Collection" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="photo" optional="YES" attributeType="Binary"/>
+        <relationship name="containElements" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Element" inverseName="isInCollection" inverseEntity="Element"/>
+    </entity>
+    <entity name="Element" representedClassName="Element" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="photo" optional="YES" attributeType="Binary"/>
+        <attribute name="place" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="String"/>
+        <relationship name="isInCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Collection" inverseName="containElements" inverseEntity="Collection"/>
+    </entity>
+    <elements>
+        <element name="Collection" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="Element" positionX="-54" positionY="9" width="128" height="134"/>
+    </elements>
 </model>

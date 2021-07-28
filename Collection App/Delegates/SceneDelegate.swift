@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Collection App
 //
-//  Created by Nahalia do Valle Papst on 15/07/21.
+//  Created by Nathalia do Valle Papst on 15/07/21.
 //
 
 import UIKit

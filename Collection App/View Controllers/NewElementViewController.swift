@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 struct ElementStruct {
     var name: String
@@ -73,7 +74,7 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         notesTextView.delegate = self
         notesTextView.returnKeyType = .done
         
-        addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
+        addPhotoButton.addTarget(self, action: #selector(callPermition), for: .touchDown)
         
         addConstraints()
 
@@ -183,6 +184,40 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
             imagePickerController.delegate = self
             imagePickerController.sourceType = .photoLibrary
             self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func callPermition(){
+            checkPermission()
+        }
+        
+    @objc func checkPermission(){
+        let photoAutorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAutorizationStatus{
+        case.authorized:
+            self.addPhoto()
+            print("Acesso permitido pelo usuário")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                DispatchQueue.main.async {
+                    print("Status is \(newStatus)")
+                    if newStatus == PHAuthorizationStatus.authorized{
+                        self.addPhoto()
+                        print("Acesso autorizado")
+                    }
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            print("User did not have access to photo album")
+        case .denied:
+            print("User has denied permission")
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
         }
     }
 }
