@@ -14,7 +14,7 @@ struct ElementStruct {
     var price: String
 }
 
-class NewElementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
+class NewElementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     var cancelButton: UIBarButtonItem!
     var addButton: UIBarButtonItem!
@@ -53,7 +53,7 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         view.addSubview(imageSpace)
         imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
         
-        imageSpace.addSubview(addPhotoButton)
+        view.addSubview(addPhotoButton)
         let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)
         addPhotoButton.setImage(UIImage(systemName: "plus", withConfiguration: configIcon), for: .normal)
         addPhotoButton.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
@@ -72,6 +72,8 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         notesTextView.font = .systemFont(ofSize: 20)
         notesTextView.delegate = self
         notesTextView.returnKeyType = .done
+        
+        addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
         
         addConstraints()
 
@@ -103,6 +105,18 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height/30).isActive = true
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        imageSpace.image = image
+        imageSpace.contentMode = .scaleToFill
+        addPhotoButton.tintColor = .clear
+        self.dismiss(animated: true, completion: nil)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -146,11 +160,30 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     @objc func cancelNewElement() {
-        self.dismiss(animated: true, completion: nil)
+        let alert = UIAlertController(title: "Tem certeza de que deseja descartar as alterações?", message: "", preferredStyle: .alert)
+        
+        let keepEditing = UIAlertAction(title: "Continuar Editando", style: .default, handler: nil)
+        let cancelEdition = UIAlertAction(title: "Ignorar Alterações", style: .destructive) { (_) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alert.addAction(keepEditing)
+        alert.addAction(cancelEdition)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func addNewElement() {
         
+    }
+    
+    @objc func addPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
     }
 }
 

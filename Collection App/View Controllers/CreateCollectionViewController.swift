@@ -95,6 +95,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         imageSpace.image = image
         imageSpace.contentMode = .scaleToFill
+        addPhotoButton.tintColor = .clear
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -131,7 +132,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @objc func cancelNewCollection() {
-        let alert = UIAlertController(title: "", message: "Tem certeza de que deseja descartar as alterações?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Tem certeza de que deseja descartar as alterações?", message: "", preferredStyle: .alert)
         
         let keepEditing = UIAlertAction(title: "Continuar Editando", style: .default, handler: nil)
         let cancelEdition = UIAlertAction(title: "Ignorar Alterações", style: .destructive) { (_) in
@@ -148,13 +149,12 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         
     }
     
-    @objc func addPhoto(_ sender: AnyObject) {
+    @objc func addPhoto() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
             imagePickerController.sourceType = .photoLibrary
             self.present(imagePickerController, animated: true, completion: nil)
         }
-        addPhotoButton.tintColor = .clear
     }
 }
