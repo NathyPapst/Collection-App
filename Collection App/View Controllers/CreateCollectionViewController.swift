@@ -120,7 +120,17 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @objc func cancelNewCollection() {
-        self.dismiss(animated: true, completion: nil)
+        let alert = UIAlertController(title: "", message: "Tem certeza de que deseja descartar as alterações?", preferredStyle: .alert)
+        
+        let keepEditing = UIAlertAction(title: "Continuar Editando", style: .default, handler: nil)
+        let cancelEdition = UIAlertAction(title: "Ignorar Alterações", style: .destructive) { (_) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alert.addAction(keepEditing)
+        alert.addAction(cancelEdition)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func addNewCollection() {
