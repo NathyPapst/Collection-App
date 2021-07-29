@@ -18,7 +18,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     
     let scrollView = UIScrollView()
     
-    var editButton: UIBarButtonItem!
+    var editAndSaveButton: UIBarButtonItem!
     var imageSpace: UIImageView = UIImageView(frame: .zero)
     var cancelButton: UIBarButtonItem!
     var okButton: UIBarButtonItem!
@@ -44,7 +44,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
         title = "Detalhes do Elemento"
         
-        editButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(editElement))
+        editAndSaveButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(editElement))
         navigationItem.rightBarButtonItem = editButton!
         
         view.addSubview(scrollView)
@@ -179,5 +179,12 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         }
         
         notesTextView.isUserInteractionEnabled = true
+        
+        editAndSaveButton = UIBarButtonItem(title: "Salvar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(saveElement))
+        navigationItem.rightBarButtonItem = editAndSaveButton!
+    }
+    
+    @objc func saveElement() {
+        
     }
 }
