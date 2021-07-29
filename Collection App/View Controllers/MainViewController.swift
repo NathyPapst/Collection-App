@@ -6,11 +6,23 @@
 //
 
 import UIKit
+import CoreData
 
-class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
     var addButton: UIBarButtonItem!
     private var collectionView: UICollectionView?
+    
+    private let coreData = CoreDataStack.shared
+    private lazy var frc: NSFetchedResultsController<Collection> = {
+        let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Collection.name, ascending: false)]
+        
+        let frc = NSFetchedResultsController<Collection>(fetchRequest: fetchRequest, managedObjectContext: coreData.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        frc.delegate = self
+        return frc
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +49,14 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
+        
+        do {
+            try frc.performFetch()
+        }
+        
+        catch {
+            print("Não foi")
+        }
         
         view.addSubview(collectionView)
         addConstraints()

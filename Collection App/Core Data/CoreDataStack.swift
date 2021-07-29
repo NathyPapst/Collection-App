@@ -67,6 +67,32 @@ class CoreDataStack {
         try save()
         return element
     }
+    
+    func deleteCollection(collection: Collection) throws {
+        mainContext.delete(collection)
+        try save()
+    }
+    
+    func deleteElement(element: Element) throws {
+        mainContext.delete(element)
+        try save()
+    }
+    
+    func editCollection(name: String, photo: Data, collection: Collection) throws {
+        collection.name = name
+        collection.photo = photo
+        try save()
+    }
+    
+    func editElement(name: String, date: String, place: String, price: String, notes: String, photo: Data, element: Element) throws {
+        element.name = name
+        element.date = date
+        element.place = place
+        element.price = price
+        element.notes = notes
+        element.photo = photo
+        try save()
+    }
 }
 
 enum CoreDataStackError: Error {
