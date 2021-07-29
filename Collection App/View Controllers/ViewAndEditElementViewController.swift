@@ -77,6 +77,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         notesTextView.font = .systemFont(ofSize: 20)
         notesTextView.delegate = self
         notesTextView.returnKeyType = .done
+        notesTextView.isUserInteractionEnabled = false
 
         scrollView.addSubview(eraseButton)
         eraseButton.setTitle("Apagar Elemento", for: .normal)
@@ -164,6 +165,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TextField {
             cell.backgroundColor =  #colorLiteral(red: 0.894770503, green: 0.9582068324, blue: 1, alpha: 1)
             cell.placeHolder = placeholders[indexPath.row]
+            cell.dataTextField.isUserInteractionEnabled = false
             return cell
         }
         return UITableViewCell()
@@ -171,9 +173,11 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     
     
     @objc func editElement() {
-        let root = ViewAndEditElementViewController()
-        let vc = UINavigationController(rootViewController: root)
-        vc.modalPresentationStyle = .automatic
-        present(vc, animated: true)
+        for cell in tableView.visibleCells {
+            let text = cell as! TextField
+            text.dataTextField.isUserInteractionEnabled = true
+        }
+        
+        notesTextView.isUserInteractionEnabled = true
     }
 }

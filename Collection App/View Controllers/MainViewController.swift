@@ -17,9 +17,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private lazy var frc: NSFetchedResultsController<Collection> = {
         let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Collection.name, ascending: false)]
-        
+
         let frc = NSFetchedResultsController<Collection>(fetchRequest: fetchRequest, managedObjectContext: coreData.mainContext, sectionNameKeyPath: nil, cacheName: nil)
-        
+
         frc.delegate = self
         return frc
     }()
@@ -53,7 +53,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         do {
             try frc.performFetch()
         }
-        
+
         catch {
             print("Não foi")
         }
