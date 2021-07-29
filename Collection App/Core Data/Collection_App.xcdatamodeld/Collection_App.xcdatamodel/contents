@@ -3,7 +3,7 @@
     <entity name="Collection" representedClassName="Collection" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="photo" optional="YES" attributeType="Binary"/>
-        <relationship name="containElements" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Element" inverseName="isInCollection" inverseEntity="Element"/>
+        <relationship name="containElements" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Element" inverseName="isInCollection" inverseEntity="Element"/>
     </entity>
     <entity name="Element" representedClassName="Element" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="String"/>
@@ -15,7 +15,7 @@
         <relationship name="isInCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Collection" inverseName="containElements" inverseEntity="Collection"/>
     </entity>
     <elements>
-        <element name="Collection" positionX="-63" positionY="-18" width="128" height="74"/>
-        <element name="Element" positionX="-54" positionY="9" width="128" height="134"/>
+        <element name="Collection" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Element" positionX="-59.9229736328125" positionY="162.3383178710938" width="128" height="134"/>
     </elements>
 </model>

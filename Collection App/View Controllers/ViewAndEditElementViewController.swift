@@ -45,7 +45,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         title = "Detalhes do Elemento"
         
         editAndSaveButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(editElement))
-        navigationItem.rightBarButtonItem = editButton!
+        navigationItem.rightBarButtonItem = editAndSaveButton!
         
         view.addSubview(scrollView)
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 1.1)

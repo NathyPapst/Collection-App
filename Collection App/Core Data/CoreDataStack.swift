@@ -57,13 +57,14 @@ class CoreDataStack {
         return collection
     }
     
-    func createElement(name: String, date: String, place: String, price: String, notes: String, photo: Data) throws -> Element {
+    func createElement(name: String, date: String, place: String, price: String, notes: String, photo: Data, collection: Collection) throws -> Element {
         let element = Element(context: mainContext)
         element.name = name
         element.date = date
         element.place = place
         element.notes = notes
         element.photo = photo
+        collection.addToContainElements(element)
         try save()
         return element
     }
@@ -78,21 +79,6 @@ class CoreDataStack {
         try save()
     }
     
-    func editCollection(name: String, photo: Data, collection: Collection) throws {
-        collection.name = name
-        collection.photo = photo
-        try save()
-    }
-    
-    func editElement(name: String, date: String, place: String, price: String, notes: String, photo: Data, element: Element) throws {
-        element.name = name
-        element.date = date
-        element.place = place
-        element.price = price
-        element.notes = notes
-        element.photo = photo
-        try save()
-    }
 }
 
 enum CoreDataStackError: Error {
