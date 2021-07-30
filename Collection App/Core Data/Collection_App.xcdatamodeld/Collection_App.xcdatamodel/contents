@@ -15,7 +15,7 @@
         <relationship name="isInCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Collection" inverseName="containElements" inverseEntity="Collection"/>
     </entity>
     <elements>
-        <element name="Collection" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Collection" positionX="-63" positionY="-18" width="128" height="74"/>
         <element name="Element" positionX="-59.9229736328125" positionY="162.3383178710938" width="128" height="134"/>
     </elements>
 </model>
