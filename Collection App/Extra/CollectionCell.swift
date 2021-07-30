@@ -33,6 +33,7 @@ class CollectionCell: UICollectionViewCell {
         super.init(frame: frame)
         self.addSubview(collectionLabel)
         self.addSubview(collectionPhoto)
+        self.addSubview(collectionLabelBackground)
         
         self.layer.masksToBounds = true
         self.layer.cornerRadius = self.frame.width/45

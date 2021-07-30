@@ -29,7 +29,7 @@ class CoreDataStack {
         return container.viewContext
     }
     
-    private init(model: String = "Collection app") {
+    private init(model: String = "Collection_App") {
         self.model = model
     }
     

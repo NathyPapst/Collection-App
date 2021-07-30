@@ -13,7 +13,17 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     var editButton: UIBarButtonItem!
     var eraseButton: UIBarButtonItem!
     private var collectionView: UICollectionView?
-
+    var collection: Collection
+    
+    init(collectionAttributes: Collection) {
+        self.collection = collectionAttributes
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,7 +31,7 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
-        title = "Nome 1"
+        title = collection.name
         
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         

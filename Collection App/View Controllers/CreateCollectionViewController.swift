@@ -19,14 +19,37 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     var addButton: UIBarButtonItem!
     var coverPhotoLabel: UILabel = UILabel()
     var addPhotoButton: UIButton = UIButton(type: .custom)
-    var collection = CollectionStruct(name: "")
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
       table.register(TextField.self, forCellReuseIdentifier: "cell")
       return table
     }()
-
+    
+    var collectionDelegate: CreateCollectionViewControllerDelegate?
+    var mainDelegate: MainViewControllerDelegate?
+    var collection: Collection?
+    
+    var nameField: String = ""
+    var photoField: Data = Data()
+    
+    init(collection: Collection?) {
+        self.collection = collection
+        
+        if let collectionAttributes = collection {
+            self.collection = collectionAttributes
+        }
+        else {
+            self.collection = try? CoreDataStack.shared.createCollection(name: "", photo: Data())
+        }
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -106,6 +129,8 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TextField {
+            cell.selectionStyle = .none
+            cell.dataTextField.text = collection?.name
             cell.backgroundColor =  #colorLiteral(red: 0.894770503, green: 0.9582068324, blue: 1, alpha: 1)
             cell.placeHolder = "Nome"
             cell.dataTextField.delegate = self
@@ -124,12 +149,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @objc func newValue(_ textField: UITextField) {
-        switch textField.tag {
-            case textFieldData.name.rawValue:
-                collection.name = textField.text ?? ""
-            default:
-                break
-        }
+        nameField = textField.text ?? ""
     }
     
     @objc func cancelNewCollection() {
@@ -137,6 +157,10 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         
         let keepEditing = UIAlertAction(title: "Continuar Editando", style: .default, handler: nil)
         let cancelEdition = UIAlertAction(title: "Ignorar Alterações", style: .destructive) { (_) in
+            guard let collection = self.collection else{return}
+            if self.nameField == "" {
+                try? CoreDataStack.shared.deleteCollection(collection: collection)
+            }
             self.dismiss(animated: true, completion: nil)
         }
         
@@ -147,7 +171,17 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @objc func addNewCollection() {
+        guard let collection = self.collection else {return}
+        if nameField == "" {
+            try? CoreDataStack.shared.deleteCollection(collection: collection)
+            print(nameField)
+        }
         
+        collection.name = nameField
+        
+        collectionDelegate?.didRegister()
+        try? CoreDataStack.shared.save()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func addPhoto() {

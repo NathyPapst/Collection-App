@@ -23,6 +23,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         frc.delegate = self
         return frc
     }()
+    
+    var collection: Collection?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return
         }
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
@@ -81,12 +83,31 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionCell else {preconditionFailure()}
         
-        let object = frc.object
+        let object = frc.object(at: indexPath)
+        cell.collectionPhoto.image = UIImage(data: object.photo ?? Data())
+        cell.collectionLabel.text = object.name
         return cell
     }
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case.insert:
+            if let newIndexPath = newIndexPath {
+                collectionView?.insertItems(at: [newIndexPath])
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                collectionView?.deleteItems(at: [indexPath])
+            }
+        default:
+            break
+        }
+        collectionView?.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ViewElementsViewController()
+        let object = frc.object(at: indexPath)
+        let vc = ViewElementsViewController(collectionAttributes: object)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -99,13 +120,19 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func addCollection() {
-        let root = CreateCollectionViewController()
+        let root = CreateCollectionViewController(collection: collection)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
     }
+    
 }
 
+extension MainViewController: CreateCollectionViewControllerDelegate {
+    func didRegister() {
+        collectionView?.reloadData()
+    }
+}
 
 
 
