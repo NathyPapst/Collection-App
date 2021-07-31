@@ -120,6 +120,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         imageSpace.image = image
         imageSpace.contentMode = .scaleToFill
         addPhotoButton.tintColor = .clear
+        saveCollectionPhoto()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -144,7 +145,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         case name = 0
     }
     
-    func isTyping(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.addTarget(self, action: #selector(newValue), for: .editingChanged)
     }
     
@@ -174,8 +175,10 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         guard let collection = self.collection else {return}
         if nameField == "" {
             try? CoreDataStack.shared.deleteCollection(collection: collection)
-            print(nameField)
+            print("oi\(nameField)")
         }
+        
+        print("oi\(nameField)")
         
         collection.name = nameField
         
@@ -191,6 +194,14 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
             imagePickerController.sourceType = .photoLibrary
             self.present(imagePickerController, animated: true, completion: nil)
         }
+    }
+    
+    func saveCollectionPhoto() {
+        let imageData = imageSpace.image?.pngData()
+        photoField = imageData ?? Data()
+        collection?.photo = photoField
+        let photo = UIImage(data: photoField)
+        imageSpace.image = photo
     }
     
     @objc func callPermition(){
