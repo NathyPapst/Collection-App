@@ -26,7 +26,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
       return table
     }()
     
-    var collectionDelegate: CreateCollectionViewControllerDelegate?
+    var collectionDelegate: CreateAndEditCollectionViewControllerDelegate?
     var mainDelegate: MainViewControllerDelegate?
     var collection: Collection?
     
@@ -159,9 +159,8 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         let keepEditing = UIAlertAction(title: "Continuar Editando", style: .default, handler: nil)
         let cancelEdition = UIAlertAction(title: "Ignorar Alterações", style: .destructive) { (_) in
             guard let collection = self.collection else{return}
-            if self.nameField == "" {
-                try? CoreDataStack.shared.deleteCollection(collection: collection)
-            }
+            try? CoreDataStack.shared.deleteCollection(collection: collection)
+            CoreDataStack.shared.mainContext.rollback()
             self.dismiss(animated: true, completion: nil)
         }
         

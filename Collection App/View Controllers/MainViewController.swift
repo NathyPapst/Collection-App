@@ -128,7 +128,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
 }
 
-extension MainViewController: CreateCollectionViewControllerDelegate {
+extension MainViewController: CreateAndEditCollectionViewControllerDelegate {
     func didRegister() {
         collectionView?.reloadData()
     }

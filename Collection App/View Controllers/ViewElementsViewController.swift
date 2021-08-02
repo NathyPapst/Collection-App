@@ -6,14 +6,26 @@
 //
 
 import UIKit
+import CoreData
 
-class ViewElementsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewElementsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate {
     
     var addButton: UIBarButtonItem!
     var editButton: UIBarButtonItem!
     var eraseButton: UIBarButtonItem!
     private var collectionView: UICollectionView?
     var collection: Collection
+    
+    private let coreData = CoreDataStack.shared
+    private lazy var frc: NSFetchedResultsController<Collection> = {
+        let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Collection.name, ascending: false)]
+
+        let frc = NSFetchedResultsController<Collection>(fetchRequest: fetchRequest, managedObjectContext: coreData.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+
+        frc.delegate = self
+        return frc
+    }()
     
     init(collectionAttributes: Collection) {
         self.collection = collectionAttributes
@@ -55,6 +67,14 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
         
+        do {
+            try frc.performFetch()
+        }
+
+        catch {
+            print("Não foi")
+        }
+        
         view.addSubview(collectionView)
         addConstraints()
     }
@@ -79,7 +99,8 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        let numberOfCollections = frc.fetchedObjects?.count ?? 0
+        return numberOfCollections
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,7 +124,7 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     @objc func editCollection() {
-        let root = EditCollectionViewController()
+        let root = EditCollectionViewController(collectionAttributes: collection)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
@@ -124,5 +145,11 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
         alert.addAction(cancelDelete)
         
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension ViewElementsViewController: CreateAndEditElementsViewControllerDelegate {
+    func didRegister() {
+        collectionView?.reloadData()
     }
 }

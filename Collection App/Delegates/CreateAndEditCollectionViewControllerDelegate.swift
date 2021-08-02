@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol CreateCollectionViewControllerDelegate {
+protocol CreateAndEditCollectionViewControllerDelegate {
     func didRegister()
 }

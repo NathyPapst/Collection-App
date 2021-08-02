@@ -12,7 +12,7 @@
 		E94E65DC26AF4D050087C2AC /* ViewAndEditElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E65DB26AF4D050087C2AC /* ViewAndEditElementViewController.swift */; };
 		E95069C126B1F4A1008E2872 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95069C026B1F4A1008E2872 /* CoreDataStack.swift */; };
 		E9581A8226B46AB700B4ABFB /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9581A8126B46AB700B4ABFB /* CollectionCell.swift */; };
-		E9581A8426B47F9F00B4ABFB /* CreateCollectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9581A8326B47F9F00B4ABFB /* CreateCollectionViewControllerDelegate.swift */; };
+		E9581A8426B47F9F00B4ABFB /* CreateAndEditCollectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9581A8326B47F9F00B4ABFB /* CreateAndEditCollectionViewControllerDelegate.swift */; };
 		E9581A8626B4835B00B4ABFB /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9581A8526B4835B00B4ABFB /* MainViewControllerDelegate.swift */; };
 		E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D326A0D8070059F578 /* AppDelegate.swift */; };
 		E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99861D526A0D8070059F578 /* SceneDelegate.swift */; };
@@ -23,6 +23,8 @@
 		E9BB8BC126A9DA2700BBD4E0 /* CreateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB8BC026A9DA2700BBD4E0 /* CreateCollectionViewController.swift */; };
 		E9BB8BC326AA191300BBD4E0 /* Textfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB8BC226AA191300BBD4E0 /* Textfield.swift */; };
 		E9C90B6826AB1CB70002A365 /* NewElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C90B6726AB1CB70002A365 /* NewElementViewController.swift */; };
+		E9FB13CA26B87B3C0050759A /* ViewElementsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FB13C926B87B3C0050759A /* ViewElementsViewControllerDelegate.swift */; };
+		E9FB13CC26B87B820050759A /* CreateAndEditElementsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FB13CB26B87B820050759A /* CreateAndEditElementsViewControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +33,7 @@
 		E94E65DB26AF4D050087C2AC /* ViewAndEditElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAndEditElementViewController.swift; sourceTree = "<group>"; };
 		E95069C026B1F4A1008E2872 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E9581A8126B46AB700B4ABFB /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
-		E9581A8326B47F9F00B4ABFB /* CreateCollectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionViewControllerDelegate.swift; sourceTree = "<group>"; };
+		E9581A8326B47F9F00B4ABFB /* CreateAndEditCollectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAndEditCollectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		E9581A8526B4835B00B4ABFB /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
 		E99861D026A0D8070059F578 /* Collection App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Collection App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99861D326A0D8070059F578 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +46,8 @@
 		E9BB8BC026A9DA2700BBD4E0 /* CreateCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionViewController.swift; sourceTree = "<group>"; };
 		E9BB8BC226AA191300BBD4E0 /* Textfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textfield.swift; sourceTree = "<group>"; };
 		E9C90B6726AB1CB70002A365 /* NewElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewElementViewController.swift; sourceTree = "<group>"; };
+		E9FB13C926B87B3C0050759A /* ViewElementsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElementsViewControllerDelegate.swift; sourceTree = "<group>"; };
+		E9FB13CB26B87B820050759A /* CreateAndEditElementsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAndEditElementsViewControllerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +105,10 @@
 			children = (
 				E99861D326A0D8070059F578 /* AppDelegate.swift */,
 				E99861D526A0D8070059F578 /* SceneDelegate.swift */,
-				E9581A8326B47F9F00B4ABFB /* CreateCollectionViewControllerDelegate.swift */,
+				E9581A8326B47F9F00B4ABFB /* CreateAndEditCollectionViewControllerDelegate.swift */,
 				E9581A8526B4835B00B4ABFB /* MainViewControllerDelegate.swift */,
+				E9FB13C926B87B3C0050759A /* ViewElementsViewControllerDelegate.swift */,
+				E9FB13CB26B87B820050759A /* CreateAndEditElementsViewControllerDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -206,8 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9FB13CC26B87B820050759A /* CreateAndEditElementsViewControllerDelegate.swift in Sources */,
 				E99861D826A0D8070059F578 /* MainViewController.swift in Sources */,
-				E9581A8426B47F9F00B4ABFB /* CreateCollectionViewControllerDelegate.swift in Sources */,
+				E9581A8426B47F9F00B4ABFB /* CreateAndEditCollectionViewControllerDelegate.swift in Sources */,
 				E9BB8BC326AA191300BBD4E0 /* Textfield.swift in Sources */,
 				E9BB8BC126A9DA2700BBD4E0 /* CreateCollectionViewController.swift in Sources */,
 				E9581A8626B4835B00B4ABFB /* MainViewControllerDelegate.swift in Sources */,
@@ -217,6 +224,7 @@
 				E95069C126B1F4A1008E2872 /* CoreDataStack.swift in Sources */,
 				E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */,
 				E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */,
+				E9FB13CA26B87B3C0050759A /* ViewElementsViewControllerDelegate.swift in Sources */,
 				E94E65DC26AF4D050087C2AC /* ViewAndEditElementViewController.swift in Sources */,
 				E99861DE26A0D8070059F578 /* Collection_App.xcdatamodeld in Sources */,
 				E9581A8226B46AB700B4ABFB /* CollectionCell.swift in Sources */,
