@@ -175,10 +175,7 @@ class CreateCollectionViewController: UIViewController, UITableViewDelegate, UIT
         guard let collection = self.collection else {return}
         if nameField == "" {
             try? CoreDataStack.shared.deleteCollection(collection: collection)
-            print("oi\(nameField)")
         }
-        
-        print("oi\(nameField)")
         
         collection.name = nameField
         

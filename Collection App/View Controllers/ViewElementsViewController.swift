@@ -110,6 +110,19 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     @objc func eraseCollection() {
+        let alert = UIAlertController(title: "Tem certeza que deseja apagar essa coleção?", message: "Se exclui-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
         
+        let delete = UIAlertAction(title: "Deletar Coleção", style: .destructive) { (action) in
+            self.dismiss(animated: true, completion: nil)
+            _ = try? CoreDataStack.shared.deleteCollection(collection: self.collection)
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        let cancelDelete = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+        
+        alert.addAction(delete)
+        alert.addAction(cancelDelete)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
