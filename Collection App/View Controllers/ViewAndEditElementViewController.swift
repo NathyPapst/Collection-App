@@ -279,14 +279,23 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     @objc func saveElement() {
         guard let element = self.element else {return}
 
-        element.name = nameField
-        element.date = dateField
-        element.place = placeField
-        element.price = priceField
-        element.notes = notesTextView.text
+        if !nameField.isEmpty && nameField != "" {
+            element.name = nameField
+        }
         
-        print("oi\(element.name)")
-        print("oii\(nameField)")
+        if !dateField.isEmpty && dateField != "" {
+            element.date = dateField
+        }
+        
+        if !placeField.isEmpty && placeField != "" {
+            element.place = placeField
+        }
+        
+        if !priceField.isEmpty && priceField != "" {
+            element.price = priceField
+        }
+        
+        element.notes = notesTextView.text
 
         try? CoreDataStack.shared.save()
         editDelegate?.didRegister()
