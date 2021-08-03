@@ -107,6 +107,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let object = frc.object(at: indexPath)
+        print("bla",(object.name))
         let vc = ViewElementsViewController(collectionAttributes: object)
         navigationController?.pushViewController(vc, animated: true)
     }

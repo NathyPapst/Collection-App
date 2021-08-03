@@ -70,11 +70,12 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
 
         scrollView.addSubview(imageSpace)
         imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
+        imageSpace.image = UIImage(data: element.photo ?? Data())
 
         imageSpace.addSubview(addPhotoButton)
         let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)
         addPhotoButton.setImage(UIImage(systemName: "plus", withConfiguration: configIcon), for: .normal)
-        addPhotoButton.tintColor = #colorLiteral(red: 0.1408720911, green: 0.1896772087, blue: 0.7425404191, alpha: 1)
+        addPhotoButton.tintColor = .clear
 
         scrollView.addSubview(tableView)
         tableView.dataSource = self
@@ -85,12 +86,14 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         notesTextView.backgroundColor = .clear
         notesTextView.layer.borderWidth = 1
         notesTextView.layer.borderColor = #colorLiteral(red: 0.7984885573, green: 0.8520841002, blue: 0.8903550506, alpha: 1)
-        notesTextView.text = notePlaceholder
         notesTextView.textColor = UIColor.lightGray
         notesTextView.font = .systemFont(ofSize: 20)
         notesTextView.delegate = self
         notesTextView.returnKeyType = .done
         notesTextView.isUserInteractionEnabled = false
+        notesTextView.text = element.notes
+        print("NTV \(notesTextView.text)")
+        print("EN\(element.notes)")
 
         scrollView.addSubview(eraseButton)
         eraseButton.setTitle("Apagar Elemento", for: .normal)
@@ -177,6 +180,26 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TextField {
             cell.backgroundColor =  #colorLiteral(red: 0.894770503, green: 0.9582068324, blue: 1, alpha: 1)
+            
+            switch indexPath.row{
+            case 0:
+                cell.dataTextField.text = element.name
+                break
+                
+            case 1:
+                cell.dataTextField.text = element.date
+                break
+                
+            case 2:
+                cell.dataTextField.text = element.place
+                break
+                
+            case 3:
+                cell.dataTextField.text = element.price
+                break
+            default:
+                print("Falhou")
+            }
             cell.placeHolder = placeholders[indexPath.row]
             cell.dataTextField.isUserInteractionEnabled = false
             return cell

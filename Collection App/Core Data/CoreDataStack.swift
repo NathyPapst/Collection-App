@@ -57,14 +57,14 @@ class CoreDataStack {
         return collection
     }
     
-    func createElement(name: String, date: String, place: String, price: String, notes: String, photo: Data, collection: Collection?) throws -> Element {
+    func createElement(name: String, date: String, place: String, price: String, notes: String, photo: Data, collection: Collection) throws -> Element {
         let element = Element(context: mainContext)
         element.name = name
         element.date = date
         element.place = place
         element.notes = notes
         element.photo = photo
-        collection?.addToContainElements(element)
+        collection.addToContainElements(element)
         try save()
         return element
     }

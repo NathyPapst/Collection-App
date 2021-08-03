@@ -35,7 +35,7 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     var elementDelegate: CreateAndEditElementsViewControllerDelegate?
     var mainElementsDelegate: ViewElementsViewControllerDelegate?
     var element: Element?
-    var collection: Collection?
+    var collection: Collection
     
     var nameField: String = ""
     var photoField: Data = Data()
@@ -44,10 +44,10 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     var priceField: String = ""
     var notesField: String = ""
 
-    init(collectionAttributes: Collection?) {
-        super.init(nibName: nil, bundle: nil)
-        
+    init(collectionAttributes: Collection) {
         self.collection = collectionAttributes
+        
+        super.init(nibName: nil, bundle: nil)
         
         self.element = try? CoreDataStack.shared.createElement(name: "", date: "", place: "", price: "", notes: "", photo: Data(), collection: collection)
     }
@@ -268,6 +268,9 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         element.place = placeField
         element.price = priceField
         element.notes = notesField
+        
+        print("oi\(notesField)")
+        
         
         elementDelegate?.didRegister()
         try? CoreDataStack.shared.save()
