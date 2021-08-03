@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 struct EditElementStruct {
     var name: String
@@ -14,7 +15,7 @@ struct EditElementStruct {
     var price: String
 }
 
-class ViewAndEditElementViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
+class ViewAndEditElementViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let scrollView = UIScrollView()
     
@@ -35,12 +36,16 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         return table
     }()
     
-    var element: Element
-    var collection: Collection
+    var elementsDelegate: CreateAndEditElementsViewControllerDelegate?
+    var element: Element?
+    var photoField = Data()
+    var nameField: String = ""
+    var dateField: String = ""
+    var placeField: String = ""
+    var priceField: String = ""
     
-    init(elementAttributes: Element, collectionAttributes: Collection) {
+    init(elementAttributes: Element) {
         self.element = elementAttributes
-        self.collection = collectionAttributes
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -70,12 +75,14 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
 
         scrollView.addSubview(imageSpace)
         imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
-        imageSpace.image = UIImage(data: element.photo ?? Data())
+        imageSpace.image = UIImage(data: element?.photo ?? Data())
 
         imageSpace.addSubview(addPhotoButton)
         let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)
         addPhotoButton.setImage(UIImage(systemName: "plus", withConfiguration: configIcon), for: .normal)
         addPhotoButton.tintColor = .clear
+        addPhotoButton.addTarget(self, action: #selector(editPhoto), for: .touchDown)
+        addPhotoButton.isUserInteractionEnabled = false
 
         scrollView.addSubview(tableView)
         tableView.dataSource = self
@@ -86,14 +93,12 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         notesTextView.backgroundColor = .clear
         notesTextView.layer.borderWidth = 1
         notesTextView.layer.borderColor = #colorLiteral(red: 0.7984885573, green: 0.8520841002, blue: 0.8903550506, alpha: 1)
-        notesTextView.textColor = UIColor.lightGray
+        notesTextView.textColor = UIColor.black
         notesTextView.font = .systemFont(ofSize: 20)
         notesTextView.delegate = self
         notesTextView.returnKeyType = .done
         notesTextView.isUserInteractionEnabled = false
-        notesTextView.text = element.notes
-        print("NTV \(notesTextView.text)")
-        print("EN\(element.notes)")
+        notesTextView.text = element?.notes
 
         scrollView.addSubview(eraseButton)
         eraseButton.setTitle("Apagar Elemento", for: .normal)
@@ -146,6 +151,17 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         eraseButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        imageSpace.image = image
+        imageSpace.contentMode = .scaleToFill
+        saveElementPhoto()
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "  Anotações" {
@@ -180,22 +196,23 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TextField {
             cell.backgroundColor =  #colorLiteral(red: 0.894770503, green: 0.9582068324, blue: 1, alpha: 1)
+            cell.selectionStyle = .none
             
             switch indexPath.row{
             case 0:
-                cell.dataTextField.text = element.name
+                cell.dataTextField.text = element?.name
                 break
                 
             case 1:
-                cell.dataTextField.text = element.date
+                cell.dataTextField.text = element?.date
                 break
                 
             case 2:
-                cell.dataTextField.text = element.place
+                cell.dataTextField.text = element?.place
                 break
                 
             case 3:
-                cell.dataTextField.text = element.price
+                cell.dataTextField.text = element?.price
                 break
             default:
                 print("Falhou")
@@ -207,6 +224,35 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         return UITableViewCell()
     }
     
+    enum TextFieldData: Int {
+        case name = 0
+        case date = 1
+        case place = 2
+        case price = 3
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.addTarget(self, action: #selector(newValue), for: .editingChanged)
+    }
+    
+    @objc func newValue(_ textField: UITextField) {
+        switch textField.tag {
+        case TextFieldData.name.rawValue:
+            nameField = textField.text ?? ""
+            
+        case TextFieldData.date.rawValue:
+            dateField = textField.text ?? ""
+            
+        case TextFieldData.place.rawValue:
+            placeField = textField.text ?? ""
+            
+        case TextFieldData.price.rawValue:
+            priceField = textField.text ?? ""
+        default:
+            break
+        }
+    }
+    
     
     @objc func editElement() {
         for cell in tableView.visibleCells {
@@ -215,12 +261,43 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         }
         
         notesTextView.isUserInteractionEnabled = true
+        addPhotoButton.isUserInteractionEnabled = true
         
         editAndSaveButton = UIBarButtonItem(title: "Salvar", style: UIBarButtonItem.Style.plain, target: self, action: #selector(saveElement))
         navigationItem.rightBarButtonItem = editAndSaveButton!
     }
     
     @objc func saveElement() {
-        
+        guard let element = self.element else {return}
+        if nameField == "" {
+            try? CoreDataStack.shared.deleteElement(element: element)
+        }
+
+        element.name = nameField
+        element.date = dateField
+        element.place = placeField
+        element.price = priceField
+        element.notes = notesTextView.text
+
+        try? CoreDataStack.shared.save()
+        elementsDelegate?.didRegister()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func editPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    func saveElementPhoto() {
+        let imageData = imageSpace.image?.pngData()
+        photoField = imageData ?? Data()
+        element?.photo = photoField
+        let photo = UIImage(data: photoField)
+        imageSpace.image = photo
     }
 }

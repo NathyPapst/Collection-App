@@ -32,8 +32,8 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         return table
     }()
     
-    var elementDelegate: CreateAndEditElementsViewControllerDelegate?
     var mainElementsDelegate: ViewElementsViewControllerDelegate?
+    var elementsDelegate: CreateAndEditElementsViewControllerDelegate?
     var element: Element?
     var collection: Collection
     
@@ -262,18 +262,15 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         if nameField == "" {
             try? CoreDataStack.shared.deleteElement(element: element)
         }
-        
+
         element.name = nameField
         element.date = dateField
         element.place = placeField
         element.price = priceField
-        element.notes = notesField
-        
-        print("oi\(notesField)")
-        
-        
-        elementDelegate?.didRegister()
+        element.notes = notesTextView.text
+
         try? CoreDataStack.shared.save()
+        elementsDelegate?.didRegister()
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -14,22 +14,15 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     var editButton: UIBarButtonItem!
     var eraseButton: UIBarButtonItem!
     private var collectionView: UICollectionView?
-    var collection: Collection
     
-    private let coreData = CoreDataStack.shared
-    private lazy var frc: NSFetchedResultsController<Element> = {
-        let fetchRequest: NSFetchRequest<Element> = Element.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Element.name, ascending: false)]
-
-        let frc = NSFetchedResultsController<Element>(fetchRequest: fetchRequest, managedObjectContext: coreData.mainContext, sectionNameKeyPath: nil, cacheName: nil)
-
-        frc.delegate = self
-        return frc
-    }()
+    var collection: Collection
+    var items = [Element]()
     
     init(collectionAttributes: Collection) {
         self.collection = collectionAttributes
         super.init(nibName: nil, bundle: nil)
+        let elements = (collection.containElements?.allObjects as? [Element])
+        items = elements ?? []
     }
     
     required init?(coder: NSCoder) {
@@ -67,14 +60,6 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
         
-        do {
-            try frc.performFetch()
-        }
-
-        catch {
-            print("Não foi")
-        }
-        
         view.addSubview(collectionView)
         addConstraints()
     }
@@ -99,44 +84,27 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfCollections = frc.fetchedObjects?.count ?? 0
-        return numberOfCollections
+        return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionCell else {preconditionFailure()}
-        
-        let object = frc.object(at: indexPath)
-        cell.collectionPhoto.image = UIImage(data: object.photo ?? Data())
-        cell.collectionLabel.text = object.name
-        return cell
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case.insert:
-            if let newIndexPath = newIndexPath {
-                collectionView?.insertItems(at: [newIndexPath])
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                collectionView?.deleteItems(at: [indexPath])
-            }
-        default:
-            break
-        }
-        collectionView?.reloadData()
+        let item = items[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionCell
+        cell?.collectionPhoto.image = UIImage(data: item.photo ?? Data())
+        cell?.collectionLabel.text = item.name
+        return cell ?? CollectionCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let object = frc.object(at: indexPath)
-        let vc = ViewAndEditElementViewController(elementAttributes: object, collectionAttributes: collection)
+        let element = items[indexPath.row]
+        let vc = ViewAndEditElementViewController(elementAttributes: element)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func addElement() {
         let root = NewElementViewController(collectionAttributes: collection)
         let vc = UINavigationController(rootViewController: root)
+        root.elementsDelegate = self
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
         
@@ -169,6 +137,8 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
 
 extension ViewElementsViewController: CreateAndEditElementsViewControllerDelegate {
     func didRegister() {
+        items = []
+        items = collection.containElements?.allObjects as? [Element] ?? []
         collectionView?.reloadData()
     }
 }
