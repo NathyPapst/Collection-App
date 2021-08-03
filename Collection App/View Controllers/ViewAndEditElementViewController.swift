@@ -15,7 +15,7 @@ struct EditElementStruct {
     var price: String
 }
 
-class ViewAndEditElementViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewAndEditElementViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     let scrollView = UIScrollView()
     
@@ -37,6 +37,8 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     }()
     
     var elementsDelegate: CreateAndEditElementsViewControllerDelegate?
+    var editDelegate: CreateAndEditElementsViewControllerDelegate?
+    var mainElementsDelegate: ViewElementsViewControllerDelegate?
     var element: Element?
     var photoField = Data()
     var nameField: String = ""
@@ -77,12 +79,13 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         imageSpace.backgroundColor = #colorLiteral(red: 0.8626788259, green: 0.8627825379, blue: 0.8626434207, alpha: 1)
         imageSpace.image = UIImage(data: element?.photo ?? Data())
 
-        imageSpace.addSubview(addPhotoButton)
+        view.addSubview(addPhotoButton)
         let configIcon = UIImage.SymbolConfiguration(pointSize: view.frame.height * 0.05, weight: .bold, scale: .large)
         addPhotoButton.setImage(UIImage(systemName: "plus", withConfiguration: configIcon), for: .normal)
         addPhotoButton.tintColor = .clear
         addPhotoButton.addTarget(self, action: #selector(editPhoto), for: .touchDown)
         addPhotoButton.isUserInteractionEnabled = false
+        
 
         scrollView.addSubview(tableView)
         tableView.dataSource = self
@@ -103,6 +106,7 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         scrollView.addSubview(eraseButton)
         eraseButton.setTitle("Apagar Elemento", for: .normal)
         eraseButton.setTitleColor(.systemRed, for: .normal)
+        eraseButton.addTarget(self, action: #selector(eraseElement), for: .touchDown)
         
         addConstraints()
     }
@@ -218,6 +222,8 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
                 print("Falhou")
             }
             cell.placeHolder = placeholders[indexPath.row]
+            cell.dataTextField.tag = indexPath.row
+            cell.dataTextField.delegate = self
             cell.dataTextField.isUserInteractionEnabled = false
             return cell
         }
@@ -238,21 +244,24 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     @objc func newValue(_ textField: UITextField) {
         switch textField.tag {
         case TextFieldData.name.rawValue:
-            nameField = textField.text ?? ""
+            guard let text = self.element?.name else {return}
+            nameField = textField.text ?? text
             
         case TextFieldData.date.rawValue:
-            dateField = textField.text ?? ""
+            guard let text = self.element?.date else {return}
+            dateField = textField.text ?? text
             
         case TextFieldData.place.rawValue:
-            placeField = textField.text ?? ""
+            guard let text = self.element?.place else {return}
+            placeField = textField.text ?? text
             
         case TextFieldData.price.rawValue:
-            priceField = textField.text ?? ""
+            guard let text = self.element?.price else {return}
+            priceField = textField.text ?? text
         default:
             break
         }
     }
-    
     
     @objc func editElement() {
         for cell in tableView.visibleCells {
@@ -269,19 +278,19 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
     
     @objc func saveElement() {
         guard let element = self.element else {return}
-        if nameField == "" {
-            try? CoreDataStack.shared.deleteElement(element: element)
-        }
 
         element.name = nameField
         element.date = dateField
         element.place = placeField
         element.price = priceField
         element.notes = notesTextView.text
+        
+        print("oi\(element.name)")
+        print("oii\(nameField)")
 
         try? CoreDataStack.shared.save()
-        elementsDelegate?.didRegister()
-        self.dismiss(animated: true, completion: nil)
+        editDelegate?.didRegister()
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func editPhoto() {
@@ -299,5 +308,23 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         element?.photo = photoField
         let photo = UIImage(data: photoField)
         imageSpace.image = photo
+    }
+    
+    @objc func eraseElement() {
+        let alert = UIAlertController(title: "Tem certeza que deseja apagar esse elemento?", message: "Se exclui-lo, você perderá todas as informações contidas nele", preferredStyle: .alert)
+        
+        let delete = UIAlertAction(title: "Deletar Elemento", style: .destructive) { (action) in
+            self.dismiss(animated: true, completion: nil)
+            _ = try? CoreDataStack.shared.deleteElement(element: self.element!)
+            self.editDelegate?.didRegister()
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        let cancelDelete = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+        
+        alert.addAction(delete)
+        alert.addAction(cancelDelete)
+        
+        present(alert, animated: true, completion: nil)
     }
 }

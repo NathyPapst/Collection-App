@@ -98,6 +98,7 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let element = items[indexPath.row]
         let vc = ViewAndEditElementViewController(elementAttributes: element)
+        vc.editDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
