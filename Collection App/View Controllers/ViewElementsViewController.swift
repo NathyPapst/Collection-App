@@ -17,11 +17,11 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     var collection: Collection
     
     private let coreData = CoreDataStack.shared
-    private lazy var frc: NSFetchedResultsController<Collection> = {
-        let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Collection.name, ascending: false)]
+    private lazy var frc: NSFetchedResultsController<Element> = {
+        let fetchRequest: NSFetchRequest<Element> = Element.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Element.name, ascending: false)]
 
-        let frc = NSFetchedResultsController<Collection>(fetchRequest: fetchRequest, managedObjectContext: coreData.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        let frc = NSFetchedResultsController<Element>(fetchRequest: fetchRequest, managedObjectContext: coreData.mainContext, sectionNameKeyPath: nil, cacheName: nil)
 
         frc.delegate = self
         return frc
@@ -62,7 +62,7 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
             return
         }
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
@@ -104,19 +104,38 @@ class ViewElementsViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.contentView.backgroundColor = .systemBlue
-        cell.contentView.layer.cornerRadius = view.frame.width/45
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionCell else {preconditionFailure()}
+        
+        let object = frc.object(at: indexPath)
+        cell.collectionPhoto.image = UIImage(data: object.photo ?? Data())
+        cell.collectionLabel.text = object.name
         return cell
     }
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case.insert:
+            if let newIndexPath = newIndexPath {
+                collectionView?.insertItems(at: [newIndexPath])
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                collectionView?.deleteItems(at: [indexPath])
+            }
+        default:
+            break
+        }
+        collectionView?.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ViewAndEditElementViewController()
+        let object = frc.object(at: indexPath)
+        let vc = ViewAndEditElementViewController(elementAttributes: object, collectionAttributes: collection)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func addElement() {
-        let root = NewElementViewController()
+        let root = NewElementViewController(collectionAttributes: collection)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)

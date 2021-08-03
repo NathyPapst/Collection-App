@@ -15,7 +15,7 @@ struct ElementStruct {
     var price: String
 }
 
-class NewElementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class NewElementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIImagePickerControllerDelegate & UITextFieldDelegate, UINavigationControllerDelegate {
     
     var cancelButton: UIBarButtonItem!
     var addButton: UIBarButtonItem!
@@ -31,7 +31,31 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         table.register(TextField.self, forCellReuseIdentifier: "cell")
         return table
     }()
+    
+    var elementDelegate: CreateAndEditElementsViewControllerDelegate?
+    var mainElementsDelegate: ViewElementsViewControllerDelegate?
+    var element: Element?
+    var collection: Collection?
+    
+    var nameField: String = ""
+    var photoField: Data = Data()
+    var dateField: String = ""
+    var placeField: String = ""
+    var priceField: String = ""
+    var notesField: String = ""
 
+    init(collectionAttributes: Collection?) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.collection = collectionAttributes
+        
+        self.element = try? CoreDataStack.shared.createElement(name: "", date: "", place: "", price: "", notes: "", photo: Data(), collection: collection)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,6 +141,7 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         imageSpace.image = image
         imageSpace.contentMode = .scaleToFill
         addPhotoButton.tintColor = .clear
+        saveElementPhoto()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -143,6 +168,8 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
             textView.textColor = UIColor.lightGray
             textView.font = .systemFont(ofSize: 20)
         }
+        
+        notesField = textView.text
     }
     
     
@@ -152,11 +179,64 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TextField {
+            cell.selectionStyle = .none
             cell.backgroundColor =  #colorLiteral(red: 0.894770503, green: 0.9582068324, blue: 1, alpha: 1)
+            
+            switch indexPath.row{
+            case 0:
+                cell.dataTextField.text = nameField
+                break
+                
+            case 1:
+                cell.dataTextField.text = dateField
+                break
+                
+            case 2:
+                cell.dataTextField.text = placeField
+                break
+                
+            case 3:
+                cell.dataTextField.text = priceField
+                break
+            default:
+                print("Falhou")
+            }
             cell.placeHolder = placeholders[indexPath.row]
+            cell.dataTextField.tag = indexPath.row
+            cell.dataTextField.delegate = self
+            
             return cell
         }
         return UITableViewCell()
+    }
+    
+    enum TextFieldData: Int {
+        case name = 0
+        case date = 1
+        case place = 2
+        case price = 3
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.addTarget(self, action: #selector(newValue), for: .editingChanged)
+    }
+    
+    @objc func newValue(_ textField: UITextField) {
+        switch textField.tag {
+        case TextFieldData.name.rawValue:
+            nameField = textField.text ?? ""
+            
+        case TextFieldData.date.rawValue:
+            dateField = textField.text ?? ""
+            
+        case TextFieldData.place.rawValue:
+            placeField = textField.text ?? ""
+            
+        case TextFieldData.price.rawValue:
+            priceField = textField.text ?? ""
+        default:
+            break
+        }
     }
     
     
@@ -165,6 +245,9 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let keepEditing = UIAlertAction(title: "Continuar Editando", style: .default, handler: nil)
         let cancelEdition = UIAlertAction(title: "Ignorar Alterações", style: .destructive) { (_) in
+            guard let element = self.element else{return}
+            try? CoreDataStack.shared.deleteElement(element: element)
+            CoreDataStack.shared.mainContext.rollback()
             self.dismiss(animated: true, completion: nil)
         }
         
@@ -175,7 +258,20 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func addNewElement() {
+        guard let element = self.element else {return}
+        if nameField == "" {
+            try? CoreDataStack.shared.deleteElement(element: element)
+        }
         
+        element.name = nameField
+        element.date = dateField
+        element.place = placeField
+        element.price = priceField
+        element.notes = notesField
+        
+        elementDelegate?.didRegister()
+        try? CoreDataStack.shared.save()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func addPhoto() {
@@ -219,6 +315,14 @@ class NewElementViewController: UIViewController, UITableViewDelegate, UITableVi
         @unknown default:
             break
         }
+    }
+    
+    func saveElementPhoto() {
+        let imageData = imageSpace.image?.pngData()
+        photoField = imageData ?? Data()
+        element?.photo = photoField
+        let photo = UIImage(data: photoField)
+        imageSpace.image = photo
     }
 }
 

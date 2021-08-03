@@ -33,7 +33,7 @@ class EditCollectionViewController: UIViewController, UITableViewDelegate, UITab
     var nameField: String = ""
     var photoField: Data = Data()
     
-    init(collectionAttributes: Collection) {
+    init(collectionAttributes: Collection?) {
         self.collection = collectionAttributes
         super.init(nibName: nil, bundle: nil)
     }

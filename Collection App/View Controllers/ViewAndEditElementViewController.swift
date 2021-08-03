@@ -34,7 +34,20 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         table.register(TextField.self, forCellReuseIdentifier: "cell")
         return table
     }()
-
+    
+    var element: Element
+    var collection: Collection
+    
+    init(elementAttributes: Element, collectionAttributes: Collection) {
+        self.element = elementAttributes
+        self.collection = collectionAttributes
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
