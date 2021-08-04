@@ -96,12 +96,19 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
         notesTextView.backgroundColor = .clear
         notesTextView.layer.borderWidth = 1
         notesTextView.layer.borderColor = #colorLiteral(red: 0.7984885573, green: 0.8520841002, blue: 0.8903550506, alpha: 1)
-        notesTextView.textColor = UIColor.black
         notesTextView.font = .systemFont(ofSize: 20)
         notesTextView.delegate = self
         notesTextView.returnKeyType = .done
         notesTextView.isUserInteractionEnabled = false
         notesTextView.text = element?.notes
+        
+        if notesTextView.text == "  Anotações" {
+            notesTextView.textColor = UIColor.lightGray
+        }
+        
+        else {
+            notesTextView.textColor = UIColor.black
+        }
 
         scrollView.addSubview(eraseButton)
         eraseButton.setTitle("Apagar Elemento", for: .normal)
@@ -189,6 +196,9 @@ class ViewAndEditElementViewController: UIViewController, UITableViewDataSource,
             textView.text = notePlaceholder
             textView.textColor = UIColor.lightGray
             textView.font = .systemFont(ofSize: 20)
+        }
+        else {
+            textView.textColor = .black
         }
     }
     
