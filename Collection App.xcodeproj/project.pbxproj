@@ -20,6 +20,8 @@
 		E99861DE26A0D8070059F578 /* Collection_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E99861DC26A0D8070059F578 /* Collection_App.xcdatamodeld */; };
 		E99861E026A0D8080059F578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E99861DF26A0D8080059F578 /* Assets.xcassets */; };
 		E99861E326A0D8080059F578 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E99861E126A0D8080059F578 /* LaunchScreen.storyboard */; };
+		E9AC3C1528414CDF003E97C8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AC3C1428414CDF003E97C8 /* MainView.swift */; };
+		E9AC3C1828416FE2003E97C8 /* MainViewCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AC3C1728416FE2003E97C8 /* MainViewCollectionDataSource.swift */; };
 		E9BB8BC126A9DA2700BBD4E0 /* CreateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB8BC026A9DA2700BBD4E0 /* CreateCollectionViewController.swift */; };
 		E9BB8BC326AA191300BBD4E0 /* Textfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB8BC226AA191300BBD4E0 /* Textfield.swift */; };
 		E9C90B6826AB1CB70002A365 /* NewElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C90B6726AB1CB70002A365 /* NewElementViewController.swift */; };
@@ -43,6 +45,8 @@
 		E99861DF26A0D8080059F578 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E99861E226A0D8080059F578 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E99861E426A0D8080059F578 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9AC3C1428414CDF003E97C8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E9AC3C1728416FE2003E97C8 /* MainViewCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCollectionDataSource.swift; sourceTree = "<group>"; };
 		E9BB8BC026A9DA2700BBD4E0 /* CreateCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionViewController.swift; sourceTree = "<group>"; };
 		E9BB8BC226AA191300BBD4E0 /* Textfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textfield.swift; sourceTree = "<group>"; };
 		E9C90B6726AB1CB70002A365 /* NewElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewElementViewController.swift; sourceTree = "<group>"; };
@@ -89,10 +93,12 @@
 		E99861D226A0D8070059F578 /* Collection App */ = {
 			isa = PBXGroup;
 			children = (
+				E9AC3C1628416FAA003E97C8 /* DataSources */,
 				E99861ED26A0D9230059F578 /* Core Data */,
 				E99861EA26A0D8740059F578 /* Delegates */,
 				E94E65D626AF26300087C2AC /* Extra */,
 				E99861EE26A0D95D0059F578 /* Storyboard */,
+				E9AC3C1328414C0C003E97C8 /* Views */,
 				E99861EB26A0D8980059F578 /* View Controllers */,
 				E99861DF26A0D8080059F578 /* Assets.xcassets */,
 				E99861E426A0D8080059F578 /* Info.plist */,
@@ -141,6 +147,22 @@
 				E99861E126A0D8080059F578 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		E9AC3C1328414C0C003E97C8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9AC3C1428414CDF003E97C8 /* MainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E9AC3C1628416FAA003E97C8 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				E9AC3C1728416FE2003E97C8 /* MainViewCollectionDataSource.swift */,
+			);
+			path = DataSources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,9 +242,11 @@
 				E9581A8626B4835B00B4ABFB /* MainViewControllerDelegate.swift in Sources */,
 				E9C90B6826AB1CB70002A365 /* NewElementViewController.swift in Sources */,
 				E94E65DA26AF47EB0087C2AC /* EditCollectionViewController.swift in Sources */,
+				E9AC3C1828416FE2003E97C8 /* MainViewCollectionDataSource.swift in Sources */,
 				E94E65D826AF265D0087C2AC /* ViewElementsViewController.swift in Sources */,
 				E95069C126B1F4A1008E2872 /* CoreDataStack.swift in Sources */,
 				E99861D426A0D8070059F578 /* AppDelegate.swift in Sources */,
+				E9AC3C1528414CDF003E97C8 /* MainView.swift in Sources */,
 				E99861D626A0D8070059F578 /* SceneDelegate.swift in Sources */,
 				E9FB13CA26B87B3C0050759A /* ViewElementsViewControllerDelegate.swift in Sources */,
 				E94E65DC26AF4D050087C2AC /* ViewAndEditElementViewController.swift in Sources */,
