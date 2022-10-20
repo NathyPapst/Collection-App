@@ -1,2 +1,2 @@
 # ReCollection
-ReCollection é um app feito para pessoas que gostam e tem o costume de criar e manter coleções. Nele você pode criar suas coleções, catalogar seus objetos, e escrever sobre eles.
+ReCollection is an app made for people who like and usually create and keep colletions, In it you can create your collections, catalog your objects, and write about them.
